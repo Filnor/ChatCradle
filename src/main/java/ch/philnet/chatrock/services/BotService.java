@@ -28,7 +28,7 @@ public class BotService {
     public void run(final Room room, String location) {
         //Notify chat users that the bot has started
         LOGGER.info("Send startup message to chat.");
-        room.send(String.format("[ [ChatRock](https://git.io/Je1fg) ] started on %s.", location));
+        room.send(String.format("[ [ChatRock](https://git.io/Je1fg) ] v2.1 started on %s.", location));
 
         //Listen for reply, mention and message posted events
         room.addEventListener(EventType.MESSAGE_POSTED, event -> handleAliveMessage(room, event));

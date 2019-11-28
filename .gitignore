@@ -43,5 +43,5 @@ src/test
 properties/auth.properties
 
 #settings
-.vscode/
-.settings/
+.vscode/*
+.settings/*

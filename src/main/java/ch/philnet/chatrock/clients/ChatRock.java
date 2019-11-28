@@ -3,12 +3,19 @@ package ch.philnet.chatrock.clients;
 import org.sobotics.chatexchange.chat.ChatHost;
 import org.sobotics.chatexchange.chat.Room;
 import org.sobotics.chatexchange.chat.StackExchangeClient;
+import org.sobotics.chatexchange.chat.User;
+
 import ch.philnet.chatrock.services.BotService;
 import ch.philnet.chatrock.utils.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -30,9 +37,27 @@ public class ChatRock {
             final Room room = client.joinRoom(ChatHost.STACK_OVERFLOW, 163468);
             new BotService().run(room, prop.getProperty("location"));
             
-            while (true) {
-                Utils.LOGGER.info("Sending quote.");
-                room.send(String.format("[ [ChatRock](https://git.io/Je1fg) ] %s.", getRandomQuote()));
+            while(true) {
+                Utils.LOGGER.info("Checking for chat messages in the last 24 hours.");
+                List<User> users = room.getCurrentUsers();
+                ArrayList<Boolean> lastMessageOutrunned = new ArrayList<Boolean>();
+
+                //Checking latest message for each user
+                for(User user : users) {
+                    long secondsSinceLastMessage = Duration.between(user.getLastMessageDate(), Instant.now()).get(ChronoUnit.SECONDS);
+
+                    //If last message was more than 24h ago, outrunned will be set to true
+                    lastMessageOutrunned.add(secondsSinceLastMessage >= 86400L);
+                }
+
+                //Checking if all messages are outrunned
+                if(Utils.areAllTrue(lastMessageOutrunned)) {
+                    Utils.LOGGER.info("Sending quote.");
+                    room.send(String.format("[ [ChatRock](https://git.io/Je1fg) ] %s.", getRandomQuote()));
+                } else {
+                    Utils.LOGGER.info("No bump needed.");
+                }
+
                 Thread.sleep(86400L);
             }
 

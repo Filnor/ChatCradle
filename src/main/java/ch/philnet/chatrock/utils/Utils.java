@@ -39,4 +39,14 @@ public final class Utils {
         }
         return list;
     }
+
+    /**
+     * Check if all values in array are true
+     * @param array The array to check
+     */
+    public static boolean areAllTrue(ArrayList<Boolean> array)
+    {
+        for(boolean b : array) if(!b) return false;
+        return true;
+    }
 }
