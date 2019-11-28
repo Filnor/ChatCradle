@@ -6,6 +6,12 @@
             "request": "launch",
             "mainClass": "ch.philnet.chatrock.clients.ChatRock",
             "projectName": "tagguard"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)",
+            "request": "launch",
+            "mainClass": "ChatRock"
         }
     ]
 }
