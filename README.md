@@ -1,8 +1,5 @@
-# ChatCradle
-A python script that posts a chat message to a Stack Overflow chat room every 24 hours
+# ChatRock
 
-## Don't forget
-- Run `git submodule update --init --recursive` after clone
-- Edit in credentials and room number before running
+A chat bot that posts a chat message to a Stack Overflow chat room every 24 hours if no other messages were posted, to prevent that the chat room gets frozen due to inactivity.
 
 If you discover any problems please open an issue.

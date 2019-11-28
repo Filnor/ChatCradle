@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ChatRock",
+            "request": "launch",
+            "mainClass": "ch.philnet.chatrock.clients.ChatRock",
+            "projectName": "tagguard"
+        }
+    ]
+}
